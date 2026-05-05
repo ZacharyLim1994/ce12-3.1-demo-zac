@@ -16,21 +16,16 @@ variable "aws_region" {
   default     = "ap-southeast-1"
 }
 
-resource "aws_instance" "activity_ec2" {
-  ami           = "ami-047126e50991d067b"
-  instance_type = "t2.micro"
+resource "aws_s3_bucket" "activity_bucket" {
+  bucket = "zaclim-activity-2-basic-bucket-20260505"
 
   tags = {
-    Name = "activity-2-terraform-ec2"
+    Name        = "Activity 2 Basic Bucket"
+    Environment = "Dev"
   }
 }
 
-output "ec2_instance_id" {
-  description = "ID of the EC2 instance"
-  value       = aws_instance.activity_ec2.id
-}
-
-output "ec2_public_ip" {
-  description = "Public IP address of the EC2 instance"
-  value       = aws_instance.activity_ec2.public_ip
+output "s3_bucket_name" {
+  description = "Name of the created S3 bucket"
+  value       = aws_s3_bucket.activity_bucket.bucket
 }
